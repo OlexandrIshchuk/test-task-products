@@ -7,10 +7,18 @@ import Contact from './pages/contactpage/Contact';
 import Login from './pages/loginpage/Login';
 import Register from './pages/registerpage/Register';
 import NoPage from './pages/404page/NoPage';
+import UpdateProduct from './pages/updateproductpage/UpdateProduct';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchProducts } from '../src/components/Api';
 
 import './App.css';
 
 export default function App() {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(fetchProducts());
+	}, []); //eslint-disable-line react-hooks/exhaustive-deps
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -20,6 +28,7 @@ export default function App() {
 					<Route path="contact" element={<Contact />} />
 					<Route path="login" element={<Login />} />
 					<Route path="register" element={<Register />} />
+					<Route path="update-product" element={<UpdateProduct />} />
 					<Route path="*" element={<NoPage />} />
 				</Route>
 			</Routes>

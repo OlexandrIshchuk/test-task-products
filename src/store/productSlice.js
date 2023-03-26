@@ -15,7 +15,7 @@ const productSlice = createSlice({
 			state.products.push(action.payload);
 		},
 		removeProduct: (state, action) => {
-			return state.products.filter(product => product.id !== action.payload.id);
+			state.products = state.products.filter(product => product.id !== action.payload.id);
 		},
 		updateProduct: (state, action) => {
 			const index = state.products.findIndex(product => product.id === action.payload.id);

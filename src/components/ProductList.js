@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts } from './Api';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import RemoveButton from './RemoveButton';
 
 const ProductList = () => {
 	const products = useSelector(({ products }) => products.products);
-	const dispatch = useDispatch();
 	const [sortOrder, setSortOrder] = useState('asc');
 	const [sortBy, setSortBy] = useState('id');
 	const [filterValue, setFilterValue] = useState('');
@@ -52,10 +50,6 @@ const ProductList = () => {
 		return 0;
 	});
 
-	useEffect(() => {
-		dispatch(fetchProducts());
-	}, []); //eslint-disable-line react-hooks/exhaustive-deps
-
 	return (
 		<div>
 			<label for="exampleInputEmail1" class="form-label">
@@ -78,9 +72,7 @@ const ProductList = () => {
 						<th className="text-center" onClick={() => handleSort('price')}>
 							Ціна
 						</th>
-						<th className="text-center" onClick={() => handleSort('images')}>
-							Фото
-						</th>
+						<th className="text-center">Фото</th>
 						<th className="text-center" onClick={() => handleSort('rating')}>
 							Рейтинг
 						</th>
@@ -102,7 +94,7 @@ const ProductList = () => {
 							<td>{product.description}</td>
 							<td>{product.price}</td>
 							<td>
-								<img className="productImages" src={product.images[0]} alt={product.images[0]} />
+								<img className="productImages" src={product.thumbnail} alt={product.thumbnail} />
 							</td>
 							<td>{product.rating}</td>
 							<td>{product.stock}</td>
