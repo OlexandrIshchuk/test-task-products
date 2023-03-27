@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-const EditButton = data => {
+function EditButton(data) {
 	const navigate = useNavigate();
 
 	function handleClick() {
@@ -14,6 +14,6 @@ const EditButton = data => {
 			</button>
 		</>
 	);
-};
+}
 
 export default EditButton;

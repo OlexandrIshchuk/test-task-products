@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import RemoveButton from './RemoveButton';
 import EditButton from './EditButton';
 
-const ProductList = () => {
+function ProductList() {
 	const products = useSelector(({ products }) => products.products);
 	const user = useSelector(({ auth }) => auth.user);
 	const [sortOrder, setSortOrder] = useState('asc');
@@ -54,8 +54,8 @@ const ProductList = () => {
 
 	return (
 		<div>
-			<label for="exampleInputEmail1" class="form-label">
-				Search
+			<label className="form-label">
+				<strong>Search</strong>
 			</label>
 			<input className="form-control mb-5 w-50" type="text" onChange={handleFilter} value={filterValue} />
 
@@ -84,8 +84,8 @@ const ProductList = () => {
 						<th className="text-center" onClick={() => handleSort('category')}>
 							Category
 						</th>
-						{user ? <th className="text-center"></th> : ''}
-						{user ? <th className="text-center"></th> : ''}
+						{user.email !== '' ? <th className="text-center"></th> : ''}
+						{user.email !== '' ? <th className="text-center"></th> : ''}
 					</tr>
 				</thead>
 				<tbody>
@@ -101,14 +101,14 @@ const ProductList = () => {
 							<td>{product.rating}</td>
 							<td>{product.stock}</td>
 							<td>{product.category}</td>
-							{user ? (
+							{user.email !== '' ? (
 								<td>
 									<EditButton id={product.id} />
 								</td>
 							) : (
 								''
 							)}
-							{user ? (
+							{user.email !== '' ? (
 								<td>
 									<RemoveButton id={product.id} />
 								</td>
@@ -121,6 +121,6 @@ const ProductList = () => {
 			</table>
 		</div>
 	);
-};
+}
 
 export default ProductList;

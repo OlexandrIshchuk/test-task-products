@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { removeProduct } from '../store/productSlice';
 import { fetchRemoveProduct } from './Api';
 
-const RemoveButton = id => {
+function RemoveButton(id) {
 	const dispatch = useDispatch();
 
 	function handleClick() {
@@ -17,6 +17,6 @@ const RemoveButton = id => {
 			</button>
 		</>
 	);
-};
+}
 
 export default RemoveButton;

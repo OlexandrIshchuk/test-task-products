@@ -29,7 +29,7 @@ export const Navbar = () => {
 						<li>
 							<Link to="/contact">Contact</Link>
 						</li>
-						{!user ? (
+						{user.email === '' ? (
 							<li>
 								<Link to="/login">LogIn</Link>
 							</li>

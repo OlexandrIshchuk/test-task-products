@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
 	category: Yup.string().required('The category is required')
 });
 
-const AddProduct = () => {
+function AddProduct() {
 	const dispatch = useDispatch();
 	const formik = useFormik({
 		initialValues: {
@@ -132,6 +132,6 @@ const AddProduct = () => {
 			</Form>
 		</>
 	);
-};
+}
 
 export default AddProduct;

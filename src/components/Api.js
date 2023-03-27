@@ -23,7 +23,7 @@ export const fetchAddProduct = formData => {
 			const data = await response.json();
 			dispatch(addProduct(data));
 		} catch (error) {
-			console.error('Error fetching products: ', error);
+			console.error('Error add product: ', error);
 		}
 	};
 };
@@ -37,7 +37,7 @@ export const fetchRemoveProduct = query => {
 			const data = await response.json();
 			dispatch(removeProduct(data));
 		} catch (error) {
-			console.error('Error fetching products: ', error);
+			console.error('Error remove product: ', error);
 		}
 	};
 };
