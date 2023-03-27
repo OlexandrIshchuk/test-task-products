@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import RemoveButton from './RemoveButton';
+import EditButton from './EditButton';
 
 const ProductList = () => {
 	const products = useSelector(({ products }) => products.products);
+	const user = useSelector(({ auth }) => auth.user);
 	const [sortOrder, setSortOrder] = useState('asc');
 	const [sortBy, setSortBy] = useState('id');
 	const [filterValue, setFilterValue] = useState('');
@@ -55,7 +57,7 @@ const ProductList = () => {
 			<label for="exampleInputEmail1" class="form-label">
 				Search
 			</label>
-			<input className="form-control mb-5" type="text" onChange={handleFilter} value={filterValue} />
+			<input className="form-control mb-5 w-50" type="text" onChange={handleFilter} value={filterValue} />
 
 			<table className="table">
 				<thead>
@@ -64,26 +66,26 @@ const ProductList = () => {
 							ID
 						</th>
 						<th className="text-center" onClick={() => handleSort('title')}>
-							Назва
+							Name
 						</th>
 						<th className="text-center" onClick={() => handleSort('description')}>
-							Опис
+							Description
 						</th>
 						<th className="text-center" onClick={() => handleSort('price')}>
-							Ціна
+							Price
 						</th>
-						<th className="text-center">Фото</th>
+						<th className="text-center">Photo</th>
 						<th className="text-center" onClick={() => handleSort('rating')}>
-							Рейтинг
+							Rating
 						</th>
 						<th className="text-center" onClick={() => handleSort('stock')}>
-							Сток
+							Stock
 						</th>
 						<th className="text-center" onClick={() => handleSort('category')}>
-							Категорія
+							Category
 						</th>
-						<th className="text-center"></th>
-						<th className="text-center"></th>
+						{user ? <th className="text-center"></th> : ''}
+						{user ? <th className="text-center"></th> : ''}
 					</tr>
 				</thead>
 				<tbody>
@@ -99,12 +101,20 @@ const ProductList = () => {
 							<td>{product.rating}</td>
 							<td>{product.stock}</td>
 							<td>{product.category}</td>
-							<td>
-								<button className="btn btn-primary btn-sm">Редаг</button>
-							</td>
-							<td>
-								<RemoveButton id={product.id} />
-							</td>
+							{user ? (
+								<td>
+									<EditButton id={product.id} />
+								</td>
+							) : (
+								''
+							)}
+							{user ? (
+								<td>
+									<RemoveButton id={product.id} />
+								</td>
+							) : (
+								''
+							)}
 						</tr>
 					))}
 				</tbody>

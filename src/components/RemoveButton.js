@@ -5,10 +5,10 @@ import { fetchRemoveProduct } from './Api';
 const RemoveButton = id => {
 	const dispatch = useDispatch();
 
-	const handleClick = () => {
+	function handleClick() {
 		dispatch(removeProduct(id));
 		dispatch(fetchRemoveProduct(id));
-	};
+	}
 
 	return (
 		<>

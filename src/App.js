@@ -28,7 +28,7 @@ export default function App() {
 					<Route path="contact" element={<Contact />} />
 					<Route path="login" element={<Login />} />
 					<Route path="register" element={<Register />} />
-					<Route path="update-product" element={<UpdateProduct />} />
+					<Route path="edit-product/:id" element={<UpdateProduct />} />
 					<Route path="*" element={<NoPage />} />
 				</Route>
 			</Routes>

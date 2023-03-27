@@ -1,10 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { fetchAddProduct } from './Api';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { updateProduct } from '../store/productSlice';
 
 const validationSchema = Yup.object({
 	title: Yup.string().required('The name is required'),
@@ -24,28 +25,69 @@ const validationSchema = Yup.object({
 	category: Yup.string().required('The category is required')
 });
 
-const AddProduct = () => {
+function EditProduct() {
 	const dispatch = useDispatch();
+	const products = useSelector(({ products }) => products.products);
+	const productId = document.location.pathname.substring(document.location.pathname.lastIndexOf('/') + 1);
+
+	const selectedProduct = products.find(el => {
+		return el.id === +productId;
+	});
+
 	const formik = useFormik({
 		initialValues: {
-			title: '',
-			description: '',
-			price: '',
-			rating: '',
-			stock: '',
-			category: ''
+			id: +productId,
+			title: selectedProduct.title,
+			description: selectedProduct.description,
+			price: selectedProduct.price,
+			rating: selectedProduct.rating,
+			stock: selectedProduct.stock,
+			category: selectedProduct.category,
+			thumbnail: selectedProduct.thumbnail
 		},
 		validationSchema,
 		onSubmit: values => {
-			dispatch(fetchAddProduct(values));
+			dispatch(updateProduct(values));
 			formik.resetForm();
 		}
 	});
 
 	return (
 		<>
-			<h2 className="text-center mt-5">Add Product</h2>
-			<Form className="add-product-form" onSubmit={formik.handleSubmit}>
+			<h1 className="text-center mb-5">Edit {selectedProduct.title}</h1>
+			<table className="table">
+				<thead>
+					<tr>
+						<th className="text-center">ID</th>
+						<th className="text-center">Name</th>
+						<th className="text-center">Description</th>
+						<th className="text-center">Price</th>
+						<th className="text-center">Photo</th>
+						<th className="text-center">Rating</th>
+						<th className="text-center">Stock</th>
+						<th className="text-center">Category</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{selectedProduct.id}</td>
+						<td>{selectedProduct.title}</td>
+						<td>{selectedProduct.description}</td>
+						<td>{selectedProduct.price}</td>
+						<td>
+							<img
+								className="productImages"
+								src={selectedProduct.thumbnail}
+								alt={selectedProduct.thumbnail}
+							/>
+						</td>
+						<td>{selectedProduct.rating}</td>
+						<td>{selectedProduct.stock}</td>
+						<td>{selectedProduct.category}</td>
+					</tr>
+				</tbody>
+			</table>
+			<Form className="add-product-form mt-5" onSubmit={formik.handleSubmit}>
 				<Form.Group className="mb-3 mt-3" controlId="title">
 					<Form.Label>Name</Form.Label>
 					<Form.Control
@@ -127,11 +169,11 @@ const AddProduct = () => {
 				</Form.Group>
 
 				<Button variant="primary" type="submit">
-					Add product
+					Edit product
 				</Button>
 			</Form>
 		</>
 	);
-};
+}
 
-export default AddProduct;
+export default EditProduct;

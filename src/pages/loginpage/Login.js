@@ -1,16 +1,46 @@
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../store/userSlice';
 import './login.style.scss';
 
 const Login = () => {
+	const navigate = useNavigate();
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const dispatch = useDispatch();
+
+	const formData = {
+		email,
+		password
+	};
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		dispatch(setUser(formData));
+		navigate('/');
+	}
 	return (
 		<>
 			<h1 className="text-center mb-5">Login</h1>
 
 			<div className="login-wrapper mx-auto">
-				<form>
+				<form onSubmit={handleSubmit}>
 					<div className="login">
-						<input type="email" className="form-control mb-3" placeholder="Email"></input>
-						<input type="password" className="form-control mb-3" placeholder="Password"></input>
+						<input
+							value={email}
+							onChange={e => setEmail(e.target.value)}
+							type="email"
+							className="form-control mb-3"
+							placeholder="Email"
+						></input>
+						<input
+							value={password}
+							onChange={e => setPassword(e.target.value)}
+							type="password"
+							className="form-control mb-3"
+							placeholder="Password"
+						></input>
 
 						<span className="text-center">
 							If you do not have an account,<br></br>
@@ -19,7 +49,9 @@ const Login = () => {
 							</Link>
 						</span>
 
-						<button className="btn btn-primary">Login</button>
+						<button type="submit" className="btn btn-primary">
+							Login
+						</button>
 					</div>
 				</form>
 			</div>

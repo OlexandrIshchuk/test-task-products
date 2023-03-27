@@ -6,7 +6,7 @@ import userReducer from './userSlice';
 const store = configureStore({
 	reducer: {
 		products: productReducer,
-		user: userReducer
+		auth: userReducer
 	},
 	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger)
 });
