@@ -42,7 +42,7 @@ function Register() {
 							<Form.Label>Name</Form.Label>
 							<Form.Control
 								type="text"
-								placeholder="Enter your email"
+								placeholder="Enter your name"
 								onChange={formik.handleChange}
 								onBlur={formik.handleBlur}
 								value={formik.values.name}
