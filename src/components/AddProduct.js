@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { fetchAddProduct } from './Api';
+import { fetchAddProduct } from '../store/productSlice';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 

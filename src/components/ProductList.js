@@ -54,10 +54,17 @@ function ProductList() {
 
 	return (
 		<div>
-			<label className="form-label">
-				<strong>Search</strong>
-			</label>
-			<input className="form-control mb-5 w-50" type="text" onChange={handleFilter} value={filterValue} />
+			<div className="d-flex justify-content-center">
+				<input
+					type="search"
+					placeholder="Search"
+					aria-label="Search"
+					aria-describedby="search-addon"
+					className="form-control rounded mb-5 w-50"
+					onChange={handleFilter}
+					value={filterValue}
+				/>
+			</div>
 
 			<table className="table">
 				<thead>

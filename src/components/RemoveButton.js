@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { removeProduct } from '../store/productSlice';
-import { fetchRemoveProduct } from './Api';
+import { fetchRemoveProduct } from '../store/productSlice';
 
 function RemoveButton(id) {
 	const dispatch = useDispatch();

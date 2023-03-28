@@ -10,7 +10,7 @@ import NoPage from './pages/404page/NoPage';
 import UpdateProduct from './pages/updateproductpage/UpdateProduct';
 import { useEffect, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchProducts } from '../src/components/Api';
+import { fetchProducts } from '../src/store/productSlice';
 import ErrorBoundary from './components/errorboundary/ErrorBoundary';
 import Spinner from './components/spinner/Spinner';
 
