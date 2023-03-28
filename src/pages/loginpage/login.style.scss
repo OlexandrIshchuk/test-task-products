@@ -9,12 +9,8 @@
         padding: 20px;
         width: 351px;
 
-        .register-link {
-            text-decoration: none;
-        }
-
-        button {
-            margin-top: 60px;
+        .login-button {
+            margin-top: 40px;
             background-color:rgb(252, 255, 255);
             border: 2px solid rgb(0, 0, 0);
             color: black;
@@ -33,4 +29,9 @@
             }
         }
     }
+}
+
+.register-link {
+    text-decoration: underline;
+    color: #0d6efd;
 }

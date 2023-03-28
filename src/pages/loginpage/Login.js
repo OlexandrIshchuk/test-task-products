@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 import { setUser } from '../../store/userSlice';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+import { Link } from 'react-router-dom';
 import './login.style.scss';
 
 const validationSchema = Yup.object({
@@ -16,6 +18,9 @@ const validationSchema = Yup.object({
 const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const [errorMessage, setErrorMessage] = useState(false);
+	const [show, setShow] = useState(true);
+	const user = JSON.parse(localStorage.getItem('user'));
 
 	const formik = useFormik({
 		initialValues: {
@@ -24,8 +29,12 @@ const Login = () => {
 		},
 		validationSchema,
 		onSubmit: values => {
-			dispatch(setUser(values));
-			navigate('/');
+			if (user && user.email === values.email && user.password === values.password) {
+				dispatch(setUser(values));
+				navigate('/');
+			} else {
+				setErrorMessage(true);
+			}
 		}
 	});
 
@@ -36,6 +45,18 @@ const Login = () => {
 			<div className="login-wrapper mx-auto">
 				<Form className="" onSubmit={formik.handleSubmit}>
 					<div className="login">
+						{errorMessage ? (
+							show ? (
+								<Alert variant="danger" onClose={() => setShow(false)} dismissible>
+									<Alert.Heading>No such user found in the system!</Alert.Heading>
+									<p>Maybe you entered the wrong e-mail and password or you are not registered</p>
+								</Alert>
+							) : (
+								''
+							)
+						) : (
+							''
+						)}
 						<Form.Group className="mb-3 mt-3" controlId="email">
 							<Form.Label>Email</Form.Label>
 							<Form.Control
@@ -48,7 +69,6 @@ const Login = () => {
 							/>
 							<Form.Control.Feedback type="invalid">{formik.errors.email}</Form.Control.Feedback>
 						</Form.Group>
-
 						<Form.Group className="mb-3" controlId="password">
 							<Form.Label>Password</Form.Label>
 							<Form.Control
@@ -61,7 +81,17 @@ const Login = () => {
 							/>
 							<Form.Control.Feedback type="invalid">{formik.errors.password}</Form.Control.Feedback>
 						</Form.Group>
-						<Button variant="primary" type="submit">
+
+						<div className="d-flex justify-content-center mt-3">
+							<span>
+								If you are not registered, please{' '}
+								<Link className="register-link" to="/register">
+									register
+								</Link>
+							</span>
+						</div>
+
+						<Button className="login-button" variant="primary" type="submit">
 							Login
 						</Button>
 					</div>
