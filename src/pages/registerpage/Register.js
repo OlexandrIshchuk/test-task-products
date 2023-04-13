@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './register.style.scss';
-
-const validationSchema = Yup.object({
-	name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Name is required'),
-	email: Yup.string().email('Invalid email').required('Email is required'),
-	password: Yup.string().required('Password is required').min(6, 'Password is too short - should be 6 chars minimum'),
-	confirmPassword: Yup.string()
-		.oneOf([Yup.ref('password'), null], 'Passwords must match')
-		.required('Confirm password is required')
-});
+import { registerUser } from '../../store/userSlice';
 
 function Register() {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const validationSchema = useMemo(
+		() =>
+			Yup.object({
+				name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Name is required'),
+				email: Yup.string().email('Invalid email').required('Email is required'),
+				password: Yup.string()
+					.required('Password is required')
+					.min(6, 'Password is too short - should be 6 chars minimum'),
+				confirmPassword: Yup.string()
+					.oneOf([Yup.ref('password'), null], 'Passwords must match')
+					.required('Confirm password is required')
+			}),
+		[]
+	);
 
 	const formik = useFormik({
 		initialValues: {
@@ -27,28 +36,31 @@ function Register() {
 		},
 		validationSchema,
 		onSubmit: values => {
+			// dispatch(registerUser(values));
 			localStorage.setItem('user', JSON.stringify(values));
 			navigate('/login');
 		}
 	});
 
+	const { handleSubmit, handleChange, handleBlur, values, errors, touched } = formik;
+
 	return (
 		<>
 			<h1 className="text-center mb-5">Register</h1>
 			<div className="register-wrapper mx-auto">
-				<Form className="" onSubmit={formik.handleSubmit}>
+				<Form className="" onSubmit={handleSubmit}>
 					<div className="register">
 						<Form.Group className="mb-3 mt-3" controlId="name">
 							<Form.Label>Name</Form.Label>
 							<Form.Control
 								type="text"
 								placeholder="Enter your name"
-								onChange={formik.handleChange}
-								onBlur={formik.handleBlur}
-								value={formik.values.name}
-								isInvalid={formik.touched.name && !!formik.errors.name}
+								onChange={handleChange}
+								onBlur={handleBlur}
+								value={values.name}
+								isInvalid={touched.name && !!errors.name}
 							/>
-							<Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
+							{errors.name && <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>}
 						</Form.Group>
 
 						<Form.Group className="mb-3" controlId="email">
@@ -56,12 +68,14 @@ function Register() {
 							<Form.Control
 								type="email"
 								placeholder="Enter your email"
-								onChange={formik.handleChange}
-								onBlur={formik.handleBlur}
-								value={formik.values.email}
-								isInvalid={formik.touched.email && !!formik.errors.email}
+								onChange={handleChange}
+								onBlur={handleBlur}
+								value={values.email}
+								isInvalid={touched.email && !!errors.email}
 							/>
-							<Form.Control.Feedback type="invalid">{formik.errors.email}</Form.Control.Feedback>
+							{errors.email && (
+								<Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+							)}
 						</Form.Group>
 
 						<Form.Group className="mb-3" controlId="password">
@@ -69,27 +83,29 @@ function Register() {
 							<Form.Control
 								type="password"
 								placeholder="Enter your password"
-								onChange={formik.handleChange}
-								onBlur={formik.handleBlur}
-								value={formik.values.password}
-								isInvalid={formik.touched.password && !!formik.errors.password}
+								onChange={handleChange}
+								onBlur={handleBlur}
+								value={values.password}
+								isInvalid={touched.password && !!errors.password}
 							/>
-							<Form.Control.Feedback type="invalid">{formik.errors.password}</Form.Control.Feedback>
+							{errors.password && (
+								<Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+							)}
 						</Form.Group>
 
 						<Form.Group className="mb-3" controlId="confirmPassword">
 							<Form.Label>Confirm password</Form.Label>
 							<Form.Control
 								type="password"
-								placeholder="Enter your password"
-								onChange={formik.handleChange}
-								onBlur={formik.handleBlur}
-								value={formik.values.confirmPassword}
-								isInvalid={formik.touched.confirmPassword && !!formik.errors.confirmPassword}
+								placeholder="Confirm password"
+								onChange={handleChange}
+								onBlur={handleBlur}
+								value={values.confirmPassword}
+								isInvalid={touched.confirmPassword && !!errors.confirmPassword}
 							/>
-							<Form.Control.Feedback type="invalid">
-								{formik.errors.confirmPassword}
-							</Form.Control.Feedback>
+							{errors.confirmPassword && (
+								<Form.Control.Feedback type="invalid">{errors.confirmPassword}</Form.Control.Feedback>
+							)}
 						</Form.Group>
 
 						<Button variant="primary" type="submit">

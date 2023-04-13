@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './pages/layout/Layout';
 import Home from './pages/homepage/Home';
 import Products from './pages/productspage/Products';
-import Contact from './pages/contactpage/Contact';
+import Shop from './pages/shoppage/ShopPage';
 import Login from './pages/loginpage/Login';
 import Register from './pages/registerpage/Register';
 import NoPage from './pages/404page/NoPage';
@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { fetchProducts } from '../src/store/productSlice';
 import ErrorBoundary from './components/errorboundary/ErrorBoundary';
 import Spinner from './components/spinner/Spinner';
+import ScrollToTop from './components/ScrollToTop';
 
 import './App.css';
 
@@ -23,13 +24,14 @@ export default function App() {
 	}, []); //eslint-disable-line react-hooks/exhaustive-deps
 	return (
 		<BrowserRouter>
+			<ScrollToTop />
 			<ErrorBoundary>
 				<Suspense fallback={<Spinner />}>
 					<Routes>
 						<Route path="/" element={<Layout />}>
 							<Route index element={<Home />} />
 							<Route path="products" element={<Products />} />
-							<Route path="contact" element={<Contact />} />
+							<Route path="shop" element={<Shop />} />
 							<Route path="login" element={<Login />} />
 							<Route path="register" element={<Register />} />
 							<Route path="edit-product/:id" element={<UpdateProduct />} />

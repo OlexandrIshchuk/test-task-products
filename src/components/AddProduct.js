@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
@@ -6,26 +6,31 @@ import { fetchAddProduct } from '../store/productSlice';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const validationSchema = Yup.object({
-	title: Yup.string().required('The name is required'),
-	description: Yup.string().required('Description is required'),
-	price: Yup.number()
-		.required('Price is required')
-		.min(1, 'The price must be at least 1')
-		.max(5000, 'The price should not be more than 5000'),
-	rating: Yup.number()
-		.required('Rating is required')
-		.min(1, 'The rating must be at least 1')
-		.max(5, 'The rating should not be more than 5'),
-	stock: Yup.number()
-		.required('Stock is required')
-		.min(1, 'The stock must be at least 1')
-		.max(200, 'The stock should not be more than 200'),
-	category: Yup.string().required('The category is required')
-});
-
 function AddProduct() {
 	const dispatch = useDispatch();
+
+	const validationSchema = useMemo(
+		() =>
+			Yup.object({
+				title: Yup.string().required('The name is required'),
+				description: Yup.string().required('Description is required'),
+				price: Yup.number()
+					.required('Price is required')
+					.min(1, 'The price must be at least 1')
+					.max(5000, 'The price should not be more than 5000'),
+				rating: Yup.number()
+					.required('Rating is required')
+					.min(1, 'The rating must be at least 1')
+					.max(5, 'The rating should not be more than 5'),
+				stock: Yup.number()
+					.required('Stock is required')
+					.min(1, 'The stock must be at least 1')
+					.max(200, 'The stock should not be more than 200'),
+				category: Yup.string().required('The category is required')
+			}),
+		[]
+	);
+
 	const formik = useFormik({
 		initialValues: {
 			title: '',

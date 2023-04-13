@@ -12,7 +12,7 @@ export const Navbar = () => {
 	}
 
 	return (
-		<div className="container">
+		<div className="header-container">
 			<div className="header">
 				<div className="logo">
 					<Link to="/">MY PAGE</Link>
@@ -27,7 +27,7 @@ export const Navbar = () => {
 							<Link to="/products">Products</Link>
 						</li>
 						<li>
-							<Link to="/contact">Contact</Link>
+							<Link to="/shop">Shop</Link>
 						</li>
 						{user.email === '' ? (
 							<li>

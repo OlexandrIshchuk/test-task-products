@@ -34,16 +34,18 @@ function EditProduct() {
 		return el.id === +productId;
 	});
 
+	const { id, title, description, price, rating, stock, category, thumbnail } = selectedProduct;
+
 	const formik = useFormik({
 		initialValues: {
 			id: +productId,
-			title: selectedProduct.title,
-			description: selectedProduct.description,
-			price: selectedProduct.price,
-			rating: selectedProduct.rating,
-			stock: selectedProduct.stock,
-			category: selectedProduct.category,
-			thumbnail: selectedProduct.thumbnail
+			title: title,
+			description: description,
+			price: price,
+			rating: rating,
+			stock: stock,
+			category: category,
+			thumbnail: thumbnail
 		},
 		validationSchema,
 		onSubmit: values => {
@@ -54,7 +56,7 @@ function EditProduct() {
 
 	return (
 		<>
-			<h1 className="text-center mb-5">Edit {selectedProduct.title}</h1>
+			<h1 className="text-center mb-5">Edit {title}</h1>
 			<table className="table">
 				<thead>
 					<tr>
@@ -70,20 +72,16 @@ function EditProduct() {
 				</thead>
 				<tbody>
 					<tr>
-						<td>{selectedProduct.id}</td>
-						<td>{selectedProduct.title}</td>
-						<td>{selectedProduct.description}</td>
-						<td>{selectedProduct.price}</td>
+						<td>{id}</td>
+						<td>{title}</td>
+						<td>{description}</td>
+						<td>{price}</td>
 						<td>
-							<img
-								className="productImages"
-								src={selectedProduct.thumbnail}
-								alt={selectedProduct.thumbnail}
-							/>
+							<img className="productImages" src={thumbnail} alt={thumbnail} />
 						</td>
-						<td>{selectedProduct.rating}</td>
-						<td>{selectedProduct.stock}</td>
-						<td>{selectedProduct.category}</td>
+						<td>{rating}</td>
+						<td>{stock}</td>
+						<td>{category}</td>
 					</tr>
 				</tbody>
 			</table>

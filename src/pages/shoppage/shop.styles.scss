@@ -1,0 +1,40 @@
+.shop-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #DFE5EE;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px #DFE5EE;
+    margin: 10px 10px;
+    padding: 30px;
+    min-height: 520px;
+
+    .item-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        margin-bottom: 20px;
+        overflow: hidden;
+
+        &:hover {
+            overflow: visible;
+            z-index: 1;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .item-price {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+}
+
+.items-category {
+    margin: 50px 0 30px;
+    text-transform: uppercase;
+    text-align: center;
+}
