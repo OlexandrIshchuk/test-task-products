@@ -14,6 +14,7 @@ import { fetchProducts } from '../src/store/productSlice';
 import ErrorBoundary from './components/errorboundary/ErrorBoundary';
 import Spinner from './components/spinner/Spinner';
 import ScrollToTop from './components/ScrollToTop';
+import ShopItemPage from './pages/shopitempage/ShopItemPage';
 
 import './App.css';
 
@@ -32,6 +33,7 @@ export default function App() {
 							<Route index element={<Home />} />
 							<Route path="products" element={<Products />} />
 							<Route path="shop" element={<Shop />} />
+							<Route path="shop-item/:id" element={<ShopItemPage />} />
 							<Route path="login" element={<Login />} />
 							<Route path="register" element={<Register />} />
 							<Route path="edit-product/:id" element={<UpdateProduct />} />

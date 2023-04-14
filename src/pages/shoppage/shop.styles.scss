@@ -17,12 +17,17 @@
         overflow: hidden;
 
         &:hover {
-            overflow: visible;
-            z-index: 1;
+            cursor: pointer;
         }
 
         img {
             width: 100%;
+        }
+    }
+
+    h4 {
+        &:hover {
+            cursor: pointer;
         }
     }
 
