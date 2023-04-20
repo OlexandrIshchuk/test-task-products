@@ -12,9 +12,15 @@ const Products = () => {
 
 	return (
 		<>
-			<h1 className="text-center mb-5">Products</h1>
-			{products.length !== 0 ? <ProductList /> : <Spinner />}
-			{user.email !== '' ? <AddProduct /> : ''}
+			{user.email !== '' ? (
+				<div>
+					<h1 className="text-center mb-5">Products</h1>
+					{products.length !== 0 ? <ProductList /> : <Spinner />}
+					{user.email !== '' ? <AddProduct /> : ''}
+				</div>
+			) : (
+				''
+			)}
 		</>
 	);
 };

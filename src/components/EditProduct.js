@@ -34,18 +34,19 @@ function EditProduct() {
 		return el.id === +productId;
 	});
 
-	const { id, title, description, price, rating, stock, category, thumbnail } = selectedProduct;
+	const { id, title, description, price, rating, stock, category, thumbnail, images } = selectedProduct;
 
 	const formik = useFormik({
 		initialValues: {
 			id: +productId,
-			title: title,
-			description: description,
-			price: price,
-			rating: rating,
-			stock: stock,
-			category: category,
-			thumbnail: thumbnail
+			title,
+			description,
+			price,
+			rating,
+			stock,
+			category,
+			thumbnail,
+			images
 		},
 		validationSchema,
 		onSubmit: values => {

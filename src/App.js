@@ -15,6 +15,7 @@ import ErrorBoundary from './components/errorboundary/ErrorBoundary';
 import Spinner from './components/spinner/Spinner';
 import ScrollToTop from './components/ScrollToTop';
 import ShopItemPage from './pages/shopitempage/ShopItemPage';
+import CartPage from './pages/cart/CartPage';
 
 import './App.css';
 
@@ -38,6 +39,7 @@ export default function App() {
 							<Route path="register" element={<Register />} />
 							<Route path="edit-product/:id" element={<UpdateProduct />} />
 							<Route path="*" element={<NoPage />} />
+							<Route path="cart" element={<CartPage />} />
 						</Route>
 					</Routes>
 				</Suspense>

@@ -12,6 +12,24 @@
         margin: 0 auto 30px auto;
     }
 
+    .image-gallery-wrapper {
+        max-height: 100px;
+        overflow: hidden;
+        text-align: center;
+        margin-bottom: 30px;
+
+        .image-gallery-item-active {
+            max-width: 150px;
+            cursor: pointer;
+        }
+
+        .image-gallery-item {
+            max-width: 150px;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+    }
+
     span {
         margin-bottom: 10px;
     }
@@ -22,12 +40,21 @@
     }
 
     .add-to-cart-btn {
-        display: flex;
+        max-width: 150px;
+        background-color:rgb(255, 255, 255);
+        border: 2px solid rgb(0, 0, 0);
+        color: black;
+        font-weight: 600;
 
-        button {
-            max-width: 150px;
+        &:hover {
+            background-color:rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
+
+        }
+        &:active {
+            background-color:rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+
         }
     }
-
-    
 }

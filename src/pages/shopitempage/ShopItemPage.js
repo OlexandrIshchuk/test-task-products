@@ -1,7 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './shopItem.styles.scss';
+import { addItem } from '../../store/cartSlice';
 
 function ShopItemPage() {
+	const dispatch = useDispatch();
 	const products = useSelector(({ products }) => products.products);
 	const productId = document.location.pathname.substring(document.location.pathname.lastIndexOf('/') + 1);
 
@@ -9,34 +12,68 @@ function ShopItemPage() {
 		return el.id === +productId;
 	});
 
-	const { id, title, description, price, rating, stock, category, thumbnail, images } = selectedProduct;
+	// const { id, title, description, price, rating, stock, category, thumbnail, images } = selectedProduct;
+
+	const [productImage, setProductImage] = useState(selectedProduct ? selectedProduct.images[0] : '');
+
+	function handleClick() {
+		const selectedItem = {
+			id: selectedProduct.id,
+			title: selectedProduct.title,
+			description: selectedProduct.description,
+			price: selectedProduct.price,
+			thumbnail: selectedProduct.thumbnail
+		};
+		dispatch(addItem(selectedItem));
+	}
 
 	return (
-		<div className="item-wrapper">
-			<h1>{title}</h1>
+		<>
+			{selectedProduct && (
+				<div className="item-wrapper">
+					<h1>{selectedProduct.title}</h1>
 
-			<div className="row">
-				<div className="col-lg-7 d-flex flex-column">
-					<img src={images[1] || thumbnail} alt={thumbnail} />
+					<div className="row">
+						<div className="col-lg-7 d-flex flex-column">
+							<img src={productImage} alt={productImage} />
+							<div className="d-flex align-items-center">
+								{selectedProduct.images.length > 0 &&
+									selectedProduct.images.map(image => (
+										<div key={image} className="image-gallery-wrapper">
+											<img
+												className={
+													productImage !== image
+														? 'image-gallery-item'
+														: 'image-gallery-item-active'
+												}
+												src={image}
+												alt={image}
+												onClick={() => setProductImage(image)}
+											/>
+										</div>
+									))}
+							</div>
 
-					<span>{description}</span>
-				</div>
+							<span>{selectedProduct.description}</span>
+						</div>
 
-				<div className="col-lg-5 d-flex flex-column">
-					<span className="item-price">Price: ${price}</span>
+						<div className="col-lg-5 d-flex flex-column">
+							<span className="item-price">Price: ${selectedProduct.price}</span>
 
-					<span>Rating: {rating}</span>
+							<span>Rating: {selectedProduct.rating}</span>
 
-					<span>Stock: {stock}</span>
+							<span>Stock: {selectedProduct.stock}</span>
 
-					<span>Category: {category}</span>
+							<span>Category: {selectedProduct.category}</span>
 
-					<div className="add-to-cart-btn">
-						<button>Add to cart</button>
+							<button className="btn add-to-cart-btn" onClick={handleClick}>
+								Add to cart
+							</button>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			)}
+		</>
 	);
 }
 

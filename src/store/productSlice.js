@@ -6,6 +6,7 @@ export const fetchProducts = () => {
 			const response = await fetch('https://dummyjson.com/products/');
 			const data = await response.json();
 			dispatch(setProducts(data.products));
+			localStorage.setItem('products', JSON.stringify(data.products));
 		} catch (error) {
 			console.error('Error fetching products: ', error);
 		}
