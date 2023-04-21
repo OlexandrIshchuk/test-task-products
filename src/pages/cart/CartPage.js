@@ -5,6 +5,11 @@ import './cartPage.styles.scss';
 function CartPage() {
 	const cartItems = useSelector(({ cart }) => cart.cartItems);
 
+	const totalPrice = cartItems.reduce(
+		(accumalatedQuantity, cartItem) => accumalatedQuantity + cartItem.quantity * cartItem.price,
+		0
+	);
+
 	return (
 		<div className="cart-page-container">
 			<div className="cart-header-container">
@@ -27,6 +32,7 @@ function CartPage() {
 			{cartItems.map(cartItem => (
 				<CartItem key={cartItem.id} cartItem={cartItem} />
 			))}
+			<div className="total-container">TOTAL: ${totalPrice}</div>
 		</div>
 	);
 }

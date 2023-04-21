@@ -1,12 +1,20 @@
 import React from 'react';
-import { removeItem } from '../store/cartSlice';
+import { clearItemFromCart, removeItem, addItem } from '../store/cartSlice';
 import { useDispatch } from 'react-redux';
 
-const CartItem = ({ cartItem, clearItem, addItem }) => {
+const CartItem = ({ cartItem }) => {
 	const dispatch = useDispatch();
 	const { title, thumbnail, price, quantity } = cartItem;
 
 	function removeItemFromCart() {
+		dispatch(clearItemFromCart(cartItem));
+	}
+
+	function addItemCart() {
+		dispatch(addItem(cartItem));
+	}
+
+	function removeItemCart() {
 		dispatch(removeItem(cartItem));
 	}
 
@@ -17,9 +25,13 @@ const CartItem = ({ cartItem, clearItem, addItem }) => {
 			</div>
 			<span className="name me-2">{title}</span>
 			<span className="quantity">
-				<div className="arrow">&#10094;</div>
+				<div className="arrow" onClick={removeItemCart}>
+					&#10094;
+				</div>
 				<span className="value">{quantity}</span>
-				<div className="arrow">&#10095;</div>
+				<div className="arrow" onClick={addItemCart}>
+					&#10095;
+				</div>
 			</span>
 			<span className="price">${price}</span>
 			<div className="remove-button" onClick={removeItemFromCart}>
